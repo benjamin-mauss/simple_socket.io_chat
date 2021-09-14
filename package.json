@@ -1,0 +1,25 @@
+{
+  "name": "simple_socket_io",
+  "version": "1.0.0",
+  "description": "a simple real-time chat using websocket",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "simple_socket_io"
+  },
+  "keywords": [
+    "socket.io",
+    "node",
+    "js",
+    "chat"
+  ],
+  "author": "benjamin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0"
+  }
+}

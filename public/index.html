@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io</title>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+</head>
+<body>
+    name:<input type="name" id="name">
+    <code>
+    <div id="start">Name - Message</div>
+    </code>
+        
+    message:<input type="text" id="message">
+    <button id="sendMessage">Send message</button>
+    
+    <script>
+
+        function addMsg(msg){
+            
+            let messages = document.getElementById("start")
+            
+            let mes = document.createElement("div")
+            mes.className = "messages"
+
+            let p1 = document.createElement("p")
+            let p0 = document.createElement("b")
+            p0.append(msg[0])
+
+            p1.appendChild(p0)
+            p1.append(": " + msg[1])
+
+            mes.appendChild(p1)
+
+            messages.appendChild(mes)
+        }
+
+        let socket;
+        
+        socket = new io("http://localhost:3000")
+        socket.on("message", msg =>{
+            addMsg(msg)
+            
+        })
+        
+        socket.on("messages", msgs =>{
+            for (msg of msgs){
+                addMsg(msg)
+            }
+            
+        })
+    
+
+        document.getElementById("sendMessage").addEventListener("click", ()=>{
+            let message = document.getElementById("message")
+            if(socket && message.value.length){
+                let msg = [document.getElementById("name").value,message.value]
+                socket.emit("message", msg)
+                addMsg(msg)
+            }
+        })
+        socket
+        
+    </script>
+
+    
+</body>
+</html>
